@@ -80,4 +80,23 @@ fs.readFile("input-day-3-rucksack.txt", "utf-8", function (err, data) {
     }
   });
   console.log(priorityNum);
+
+  //Part 2
+  const elfArray = [];
+  for (let i = 0; i < dataArray.length - 1; i += 3) {
+    elfArray.push([dataArray[i], dataArray[i + 1], dataArray[i + 2]]);
+  }
+
+  let priorityTotal = 0;
+
+  elfArray.forEach((elfTrio) => {
+    for (let i = 0; i < elfTrio[0].length; i++) {
+      if (elfTrio[1].includes(elfTrio[0][i])) {
+        if (elfTrio[2].includes(elfTrio[0][i])) {
+          return (priorityTotal += priority(elfTrio[0][i]));
+        }
+      }
+    }
+  });
+  console.log(priorityTotal);
 });
