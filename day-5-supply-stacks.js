@@ -38,20 +38,46 @@ fs.readFile("input-day-5-supplies.txt", "utf-8", function (err, data) {
     crateArray = [];
   }
 
-  //MANIPULATE CRATE OBJECT
+  // //MANIPULATE CRATE OBJECT PART 1
+  // for (let n = 0; n < directionsMap.length; n++) {
+  //   let splitArray = directionsMap[n].split(" ");
+  //   let numOfBoxes = Number(splitArray[1]);
+  //   let startingColumm = splitArray[3];
+  //   let endingColumn = splitArray[5];
+
+  //   for (let i = 0; i < numOfBoxes; i++) {
+  //     crateObj[endingColumn] = [
+  //       ...crateObj[endingColumn],
+  //       crateObj[startingColumm][crateObj[startingColumm].length - 1],
+  //     ];
+  //     crateObj[startingColumm].pop();
+  //   }
+  // }
+
+  // let finalString = "";
+  // for (let i = 1; i <= 9; i++) {
+  //   finalString += crateObj[i][crateObj[i].length - 1];
+  // }
+  // console.log(finalString);
+
+  //MANIPULATE CRATE OBJECT PART 2
   for (let n = 0; n < directionsMap.length; n++) {
     let splitArray = directionsMap[n].split(" ");
     let numOfBoxes = Number(splitArray[1]);
     let startingColumm = splitArray[3];
     let endingColumn = splitArray[5];
+    let currentBoxes = [];
 
     for (let i = 0; i < numOfBoxes; i++) {
-      crateObj[endingColumn] = [
-        ...crateObj[endingColumn],
-        crateObj[startingColumm][crateObj[startingColumm].length - 1],
-      ];
+      let lastBoxIndex = crateObj[startingColumm].length - 1;
+      currentBoxes.push(crateObj[startingColumm][lastBoxIndex]);
       crateObj[startingColumm].pop();
     }
+    currentBoxes.reverse();
+
+    let newEndingColumn = [...crateObj[endingColumn]];
+
+    crateObj[endingColumn] = [...newEndingColumn, ...currentBoxes];
   }
 
   let finalString = "";
